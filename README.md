@@ -1,6 +1,6 @@
 # Cuenta bancaria en Python
 
-Sistema de cuentas bancarias que aplica los cuatro pilares de la programación orientada a objetos.
+Sistema de cuentas bancarias que aplica tres pilares de la programación orientada a objetos: herencia, encapsulamiento y polimorfismo.
 
 ## Características
 - Depósitos, retiros y transferencias con validaciones
@@ -10,10 +10,12 @@ Sistema de cuentas bancarias que aplica los cuatro pilares de la programación o
 ## Conceptos aplicados
 - **Herencia:** `CuentaCheques` extiende `CuentaBancaria`
 - **Encapsulamiento:** el saldo solo se modifica mediante métodos que lo validan
-- **Polimorfismo:** `retirar` y `mostrar_saldo` se comportan distinto según el tipo de cuenta
+- **Polimorfismo:** la propiedad `disponible` y `mostrar_saldo` se comportan distinto según el tipo de cuenta
 
 ## Cómo ejecutarlo
-```python cuenta_bancaria.py```
+```
+python cuenta_bancaria.py
+```
 
 ## Autor
 Rodolfo Ernesto Lara Romero
