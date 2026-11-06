@@ -7,6 +7,10 @@ class CuentaBancaria:
     def saldo(self):
         return self._saldo
 
+    @property
+    def disponible(self):
+        return self._saldo
+
     def depositar(self, cantidad):
         if cantidad <= 0:
             print(f'{self.titular} deposita una cantidad invalida')
@@ -17,8 +21,8 @@ class CuentaBancaria:
         if cantidad <= 0:
             print(f'{self.titular} retira una cantidad invalida')
             return False
-        elif cantidad > self._saldo:
-            print(f'{self.titular} tiene saldo insuficiente')
+        elif cantidad > self.disponible:
+            print(f'{self.titular} no tiene fondos suficientes')
             return False
         else:
             self._saldo -= cantidad
@@ -36,19 +40,12 @@ class CuentaCheques(CuentaBancaria):
         super().__init__(titular, saldo)
         self.limite_sobregiro = limite_sobregiro
 
-    def retirar(self, cantidad):
-        if cantidad <= 0:
-            print(f'{self.titular} retira una cantidad invalida')
-            return False
-        if cantidad > self._saldo + self.limite_sobregiro:
-            print(f'{self.titular} excede su limite de sobregiro')
-            return False
-        else:
-            self._saldo -= cantidad
-            return True
+    @property
+    def disponible(self):
+        return self._saldo + self.limite_sobregiro
 
     def mostrar_saldo(self):
-            print(f'{self.titular} tiene ${self._saldo} (disponible: ${self._saldo + self.limite_sobregiro})')
+        print(f'{self.titular} tiene ${self._saldo} (disponible: ${self.disponible})')
 
 pedro = CuentaBancaria("Pedro", 350)
 pablo = CuentaBancaria("Pablo", 100)
