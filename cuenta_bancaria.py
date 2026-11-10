@@ -1,4 +1,6 @@
-class CuentaBancaria:
+from abc import ABC, abstractmethod
+
+class CuentaBancaria(ABC):
     def __init__(self, titular, saldo=0):
         self.titular = titular
         self._saldo = saldo
@@ -6,10 +8,11 @@ class CuentaBancaria:
     @property
     def saldo(self):
         return self._saldo
-
+    
     @property
+    @abstractmethod
     def disponible(self):
-        return self._saldo
+        pass
 
     def depositar(self, cantidad):
         if cantidad <= 0:
@@ -47,8 +50,13 @@ class CuentaCheques(CuentaBancaria):
     def mostrar_saldo(self):
         print(f'{self.titular} tiene ${self._saldo} (disponible: ${self.disponible})')
 
-pedro = CuentaBancaria("Pedro", 350)
-pablo = CuentaBancaria("Pablo", 100)
+class CuentaDebito(CuentaBancaria):
+    @property
+    def disponible(self):
+        return self._saldo
+
+pedro = CuentaDebito("Pedro", 350)
+pablo = CuentaDebito("Pablo", 100)
 
 pedro.depositar(120)
 pablo.retirar(-70)
@@ -71,3 +79,9 @@ cuentas = [pedro, pablo, maria]
 for cuenta in cuentas:
     cuenta.retirar(300)
     cuenta.mostrar_saldo()
+
+print("\n--- Prueba de abstracción ---")
+try:
+    generica = CuentaBancaria("X", 100)
+except TypeError as error:
+    print(f'No se puede crear una CuentaBancaria genérica: {error}')
