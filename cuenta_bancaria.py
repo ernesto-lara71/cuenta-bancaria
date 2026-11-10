@@ -8,7 +8,7 @@ class CuentaBancaria(ABC):
     @property
     def saldo(self):
         return self._saldo
-    
+
     @property
     @abstractmethod
     def disponible(self):
